@@ -1,9 +1,27 @@
-version: "3"
+version: "3.3"
+
 services:
-  web:
-    image: caddy
+  db:
+    build: ./build/db
+    # command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./dbfiles:/var/lib/mysql
+    env_file:
+      - ./build/db/db.env
+  adminer1:
+    image: docker.io/adminer:latest
+    ports:
+      - 8081:8080
+  phpmyadmin1:
+    image: docker.io/phpmyadmin:apache
+    ports:
+      - 8080:80
+  web1:
+    build: ./build/php
+    volumes:
+      - .:/var/www/html/
     ports:
       - 80:80
-    volumes:
-      - ./dist/:/usr/share/caddy
-      - ./build/caddy/Caddyfile:/etc/caddy/Caddyfile
+  # busybox:
+  #   image: busybox
+  #   tty: true
