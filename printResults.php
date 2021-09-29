@@ -1,48 +1,56 @@
 <?php
-  function print_number($number) {
+function printNumber($number)
+{
     if ($number != '') {
-      return " #$number";
+        return " #$number";
     };
-  };
-  function print_results($results) {
+};
+function printResults($results)
+{
     if ($results) {
-      $iterator = 0;
-      $cardsPerRow = 4;
-      $column = 12 / $cardsPerRow;
-      foreach ($results as $record) {
-        if ($iterator % $cardsPerRow == 0) {
-          print "</div><div class='row align-items-stretch'>";
-        };
-        if (file_exists("images/".$record['image'])) {
-          $image = $record['image'];
-        } else {
-          $image = "placeholderImage.jpg";
-        };
-        print "<a type='button' data-bs-toggle='modal' class='col-".$column." my-3' data-bs-target='#modal".$record['sku']."'>
-        <div class='card h-100'>"
-        ."<img class='img-fluid' src='images/".$image."' alt='".$record['title']."'>"
-        ."<hr class='bg-secondary my-0'><div class='card-body d-flex align-items-center'>"
-        ."<h5 class='card-title text-center flex-grow-1'>".
-        $record['title'].print_number($record['number'])."</h5>"
-        ."</div></div></a>";
-        $iterator++;
-        $volume = '';
-        if ($record['volume'] != '') {
-          $volume = "<p>Volume: ".$record['volume']."</p>";
-        }
-        $number = '';
-        if ($record['number'] != '') {
-          $number = "<p>Release Number: ".$record['number']."</p>";
-        }
+        $iterator = 0;
+        $cardsPerRow = 4;
+        $column = 12 / $cardsPerRow;
+        foreach ($results as $record) {
+            if ($iterator % $cardsPerRow == 0) {
+                print "</div><div class='row align-items-stretch'>";
+            };
+            if (file_exists("images/".$record['image'])) {
+                $image = $record['image'];
+            } else {
+                $image = "placeholderImage.jpg";
+            };
+            print "<a data-bs-toggle='modal'
+            class='col-".$column." my-3' data-bs-target='#modal".$record['sku']."'>
+            <div class='card h-100'>"
+            ."<img class='img-fluid' src='images/".$image."'
+            alt='".$record['title']."'>"
+            ."<hr class='bg-secondary my-0'
+            <div class='card-body d-flex align-items-center'>"
+            ."<h5 class='card-title text-center flex-grow-1'>".
+            $record['title'].printNumber($record['number'])."</h5>"
+            ."</div></div></a>";
+            $iterator++;
+            $volume = '';
+            if ($record['volume'] != '') {
+                $volume = "<p>Volume: ".$record['volume']."</p>";
+            }
+            $number = '';
+            if ($record['number'] != '') {
+                  $number = "<p>Release Number: ".$record['number']."</p>";
+            }
 
-        print '<div class="modal fade" tabindex="-1" id="modal'.$record['sku'].'"
+            print '<div class="modal fade" tabindex="-1" id="modal'.$record['sku'].'"
         aria-labelledby="modal'.$record['sku'].'Label" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable
         modal-xl">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="modal'.$record['sku'].'Label">'.$record['title'].print_number($record['number']).'</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <h5 class="modal-title"
+              id="modal'.$record['sku'].'Label"
+              '.$record['title'].printNumber($record['number']).'</h5>
+              <button type="button" class="btn-close"
+              data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <div class="container-fluid">
@@ -63,20 +71,22 @@
                     <div class="vr"></div>
                   </div>
                   <div class="col-4 ps-0">
-                    <img class="img-fluid" src="images/'.$image.'" alt="'.$record['title'].'">
+                    <img class="img-fluid" src="images/'.$image.'"
+                    alt="'.$record['title'].'">
                   </div>
                 </div>
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-secondary"
+              data-bs-dismiss="modal">Close</button>
             </div>
           </div>
         </div>
       </div>';
-      };
+        };
     } else {
-      print "There were no results for your query";
+        print "There were no results for your query";
     };
-  };
+};
 ?>

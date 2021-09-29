@@ -1,7 +1,7 @@
 <?php
 include "connect.php";
 include "header.php";
-print_header("CGS | Home", 0);
+printHeader("CGS | Home", 0);
 ?>
     <table class="table mt-5 pt-3">
       <thead>
@@ -22,22 +22,24 @@ print_header("CGS | Home", 0);
       </thead>
       <tbody>
       <?php
-        $query = $pdo->query("SELECT title, series, price, sku, description,
+        $query = $pdo->query(
+            "SELECT title, series, price, sku, description,
         date, volume, number, category, image,
         manufacturers.publisher, manufacturers.website
         FROM products
         INNER JOIN manufacturers
         ON products.publisher = manufacturers.id 
-        ORDER BY title ASC, number ASC");
+        ORDER BY title ASC, number ASC"
+        );
         $results = $query->fetchAll();
 
         foreach ($results as $record) {
-          if (file_exists("images/".$record['image'])) {
-            $image = $record['image'];
-          } else {
-            $image = "placeholderImage.jpg";
-          };
-          print "<tr>
+            if (file_exists("images/".$record['image'])) {
+                $image = $record['image'];
+            } else {
+                $image = "placeholderImage.jpg";
+            };
+            print "<tr>
           <th scope='row'>" . "<p>" . $record['title'] . "</p><br>" . "</th>
           <td>" . "<p>" . $record['series'] . "</p><br>" . "</td>
           <td>" . "<p>$" . $record['price'] . "</p><br>" . "</td>
@@ -49,11 +51,12 @@ print_header("CGS | Home", 0);
           <td>" . "<p>" . $record['category'] . "</p><br>" . "</td>
           <td>" . "<p>" . $record['publisher'] . "</p><br>" . "</td>
           <td>" . "<p>" . $record['website'] . "</p><br>" . "</td>
-          <td>" . "<img class='w-100'src='images/" . $image . "' alt='".$record['title']."'><br>" . "</td>";
+          <td>" . "<img class='w-100' src='images/" . $image . "'
+          alt='".$record['title']."'><br>" . "</td>";
         }
         $query = null;
         $pdo = null;
-      ?>
+        ?>
       </tbody>
     </table>
 
