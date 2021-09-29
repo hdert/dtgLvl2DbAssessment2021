@@ -7,3 +7,5 @@ dev/
 *.xcf
 dbfiles/
 *.jpg
+connect.php
+build/db/db.env
