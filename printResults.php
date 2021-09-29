@@ -26,6 +26,14 @@
         $record['title'].print_number($record['number'])."</h5>"
         ."</div></div></a>";
         $iterator++;
+        $volume = '';
+        if ($record['volume'] != '') {
+          $volume = "<p>Volume: ".$record['volume']."</p>";
+        }
+        $number = '';
+        if ($record['number'] != '') {
+          $number = "<p>Release Number: ".$record['number']."</p>";
+        }
 
         print '<div class="modal fade" tabindex="-1" id="modal'.$record['sku'].'"
         aria-labelledby="modal'.$record['sku'].'Label" aria-hidden="true">
@@ -44,9 +52,9 @@
                       <p>Manufacturer: '.$record['publisher'].'</p>
                       <p>Manufacturer Website: '.$record['website'].'</p>
                       <p>SKU: '.$record['sku'].'</p>
-                      <p>Volume: '.$record['volume'].'</p>
+                      '.$volume.'
                       <p>Series: '.$record['series'].'</p>
-                      <p>Release Number: '.$record['number'].'</p>
+                      '.$number.'
                       <p>Release Date: '.$record['date'].'</p>
                       <p>Price: $'.$record['price'].'</p>
                       <p>Category: '.$record['category'].'</p>
