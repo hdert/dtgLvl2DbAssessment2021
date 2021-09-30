@@ -1,6 +1,6 @@
 <?php
-include "connect.php";
-include "header.php";
+require "connect.php";
+require "header.php";
 printHeader("CGS | Gallery", 1);
 ?>
     <div class="container align-items-stretch mt-5 pt-3">
@@ -18,7 +18,7 @@ ORDER BY title ASC, number ASC"
 
           $results = $query->fetchAll();
 
-          include "printResults.php";
+          require "printResults.php";
           printResults($results);      
 
           $query = null;
@@ -27,4 +27,4 @@ ORDER BY title ASC, number ASC"
       </div>
     </div>
 
-  <?php include "footer.php"; ?>
+  <?php require "footer.php"; ?>

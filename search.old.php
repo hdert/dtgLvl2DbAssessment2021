@@ -1,6 +1,6 @@
 <?php
-include "connect.php";
-include "header.php";
+require "connect.php";
+require "header.php";
 printHeader("CGS | Search", 2);
 $query = '';
 if (array_key_exists('query', $_GET)) {
@@ -91,9 +91,10 @@ if (array_key_exists('priceSort', $_GET)) {
             // print the results
         // else print "There were no results for your query"
 
-      include "printResults.php";
+      require "printResults.php";
 
-function priceFieldIsValid() {
+function priceFieldIsValid()
+{
     if (array_key_exists('price', $_GET)) {
         $price = $_GET['price'];
         if ($price == '') {
@@ -106,7 +107,8 @@ function priceFieldIsValid() {
     };
 };
 
-function priceSortHandler($pdo, $search_query, $price, $priceSort) {
+function priceSortHandler($pdo, $search_query, $price, $priceSort)
+{
     if ($search_query) {
         if ($priceSort == 'lessThan') {
             $query = $pdo->prepare(
@@ -268,4 +270,4 @@ case 2:
     </div>
   </div>
 
-  <?php include "footer.php" ?>
+  <?php require "footer.php" ?>

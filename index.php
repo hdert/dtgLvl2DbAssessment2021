@@ -1,6 +1,6 @@
 <?php
-include "connect.php";
-include "header.php";
+require "connect.php";
+require "header.php";
 printHeader("CGS | Home", 0);
 ?>
     <table class="table mt-5 pt-3">
@@ -60,4 +60,4 @@ printHeader("CGS | Home", 0);
       </tbody>
     </table>
 
-    <?php include "footer.php"; ?>
+    <?php require "footer.php"; ?>

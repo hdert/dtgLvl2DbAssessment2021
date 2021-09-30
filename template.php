@@ -1,7 +1,7 @@
 <?php
-include "connect.php";
-include "header.php";
+require "connect.php";
+require "header.php";
 printHeader("CGS", 0);
 ?>
 
-<?php include "footer.php"; ?>
+<?php require "footer.php"; ?>

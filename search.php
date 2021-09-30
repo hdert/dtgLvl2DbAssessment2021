@@ -1,6 +1,6 @@
 <?php
-include "connect.php";
-include "header.php";
+require "connect.php";
+require "header.php";
 printHeader("CGS | Search", 2);
 function isValid($array_item_name, $array)
 {
@@ -59,7 +59,7 @@ if (isValid('priceSort', $_GET)) {
     </div>
     <div class="container align-items-stretch mt-3">
       <div class="row align-items-stretch">';
-      include "printResults.php";
+      require "printResults.php";
 
       $statementPlaceholders = [];
 
@@ -132,4 +132,4 @@ if (empty($statementPlaceholders)) {
       </div>
     </div>
 
-  <?php include "footer.php"; ?>
+  <?php require "footer.php"; ?>
