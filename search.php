@@ -1,5 +1,4 @@
 <?php
-require "connect.php";
 require "header.php";
 printHeader("CGS | Search", 2);
 function isValid($array_item_name, $array)
@@ -19,7 +18,7 @@ if (isValid('query', $_GET)) {
 if (isValid('price', $_GET)) {
     $price = "value='".$_GET['price']."'";
 };
-$lessThan = 'checked';
+$lessThan = '';
 $equals = '';
 $greaterThan = '';
 if (isValid('priceSort', $_GET)) {
@@ -30,8 +29,31 @@ if (isValid('priceSort', $_GET)) {
     case "greaterThan":
         $greaterThan = "checked";
         break;
+    default:
+        $lessThan = "checked";
+        break;
     };
-};
+} else {
+    $lessThan = "checked";
+}
+$all = '';
+$comics = '';
+$boardgames = '';
+if (isValid('productType', $_GET)) {
+    switch ($_GET['productType']) {
+    case "comics":
+        $comics = "checked";
+        break;
+    case "boardgames":
+        $boardgames = "checked";
+        break;
+    default:
+        $all = "checked";
+        break;
+    };
+} else {
+    $all = "checked";
+}
    print '
     <div class="container-fluid col-8 mt-5 pt-5">
       <form action="search.php" method="get" class="d-flex flex-wrap">
@@ -52,6 +74,17 @@ if (isValid('priceSort', $_GET)) {
           <input type="radio" class="btn-check"
           name="priceSort" id="greaterThan" value="greaterThan" '.$greaterThan.'>
           <label class="btn btn-primary" for="greaterThan">Greater Than</label>
+        </div>
+        <div class="input-group input-group-sm mt-3">
+            <input type="radio" class="btn-check"
+            name="productType" id="all" value="" '.$all.'>
+            <label class="btn btn-primary" for="all">All Products</label>
+            <input type="radio" class="btn-check"
+            name="productType" id="comics" value="comics" '.$comics.'>
+            <label class="btn btn-primary" for="comics">Comics</label>
+            <input type="radio" class="btn-check"
+            name="productType" id="boardgames" value="boardgames" '.$boardgames.'>
+            <label class="btn btn-primary" for="boardgames">Boardgames</label>
         </div>
         <button class="btn btn-outline-primary col-4 mx-auto mt-3"
         type="submit">Search</button>
@@ -87,7 +120,7 @@ if (isValid('query', $_GET)) {
         $q = $_GET['query'];
         array_push(
             $statementPlaceholders, $wq, $wq,
-            $q, $wq, $q, $wq, $q, $wq, $wq, $w
+            $q, $wq, $q, $wq, $q, $wq, $wq, $wq
         );
 };
 
@@ -114,7 +147,24 @@ if (isValid('price', $_GET)) {
     array_push($statementPlaceholders, $_GET['price']);
 };
 
-      $statement .= " ORDER BY title ASC, number ASC";
+if (isValid('productType', $_GET)) {
+    $statement .= " AND category = ";
+    switch ($_GET['productType']) {
+    case "comics":
+        $statement .= "'comics'";
+        break;
+    case "boardgames":
+        $statement .= "'boardgames'";
+        break;
+    default:
+        $statement .= "'comics'";
+        break;
+    };
+};
+
+$statement .= " ORDER BY title ASC, number ASC";
+
+// print $statement;
 
 if (empty($statementPlaceholders)) {
     $query = $pdo->query($statement);

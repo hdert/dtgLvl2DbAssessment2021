@@ -20,12 +20,12 @@ function printResults($results)
             } else {
                 $image = "placeholderImage.jpg";
             };
-            print "<a data-bs-toggle='modal'
+            print "<a role='button' data-bs-toggle='modal'
             class='col-".$column." my-3' data-bs-target='#modal".$record['sku']."'>
             <div class='card h-100'>"
             ."<img class='img-fluid' src='images/".$image."'
             alt='".$record['title']."'>"
-            ."<hr class='bg-secondary my-0'
+            ."<hr class='bg-secondary my-0'>
             <div class='card-body d-flex align-items-center'>"
             ."<h5 class='card-title text-center flex-grow-1'>".
             $record['title'].printNumber($record['number'])."</h5>"
@@ -34,11 +34,16 @@ function printResults($results)
             $volume = '';
             if ($record['volume'] != '') {
                 $volume = "<p>Volume: ".$record['volume']."</p>";
-            }
+            };
             $number = '';
             if ($record['number'] != '') {
-                  $number = "<p>Release Number: ".$record['number']."</p>";
-            }
+                $number = "<p>Release Number: ".$record['number']."</p>";
+            };
+            $publisher = '<p>Manufacturer: '.$record['publisher'].'</p>';
+            if ($record['website'] != '') {
+                $publisher = '<p>Manufacturer: <a href="'.$record['website'].'"
+                target="_blank">'.$record['publisher'].'</a></p>';
+            };
 
             print '<div class="modal fade" tabindex="-1" id="modal'.$record['sku'].'"
         aria-labelledby="modal'.$record['sku'].'Label" aria-hidden="true">
@@ -47,8 +52,8 @@ function printResults($results)
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title"
-              id="modal'.$record['sku'].'Label"
-              '.$record['title'].printNumber($record['number']).'</h5>
+              id="modal'.$record['sku'].'Label">'.$record['title'].
+              printNumber($record['number']).'</h5>
               <button type="button" class="btn-close"
               data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -57,8 +62,7 @@ function printResults($results)
                 <div class="row">
                   <div class="col-8 d-flex justify-content-between pe-0">
                     <div class="me-3">
-                      <p>Manufacturer: '.$record['publisher'].'</p>
-                      <p>Manufacturer Website: '.$record['website'].'</p>
+                      '.$publisher.'
                       <p>SKU: '.$record['sku'].'</p>
                       '.$volume.'
                       <p>Series: '.$record['series'].'</p>

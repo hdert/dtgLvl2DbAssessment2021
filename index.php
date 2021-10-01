@@ -1,5 +1,4 @@
 <?php
-require "connect.php";
 require "header.php";
 printHeader("CGS | Home", 0);
 ?>
@@ -39,6 +38,11 @@ printHeader("CGS | Home", 0);
             } else {
                 $image = "placeholderImage.jpg";
             };
+            $website = '<p>'.$record['publisher'].'</p>';
+            if ($record['website'] != '') {
+                $website = '<a href="'.$record['website'].'"
+                target="_blank">'.$record['publisher'].'</a>';
+            };
             print "<tr>
           <th scope='row'>" . "<p>" . $record['title'] . "</p><br>" . "</th>
           <td>" . "<p>" . $record['series'] . "</p><br>" . "</td>
@@ -49,8 +53,7 @@ printHeader("CGS | Home", 0);
           <td>" . "<p>" . $record['volume'] . "</p><br>" . "</td>
           <td>" . "<p>" . $record['number'] . "</p><br>" . "</td>
           <td>" . "<p>" . $record['category'] . "</p><br>" . "</td>
-          <td>" . "<p>" . $record['publisher'] . "</p><br>" . "</td>
-          <td>" . "<p>" . $record['website'] . "</p><br>" . "</td>
+          <td>".$website."<br>"."</td>
           <td>" . "<img class='w-100' src='images/" . $image . "'
           alt='".$record['title']."'><br>" . "</td>";
         }

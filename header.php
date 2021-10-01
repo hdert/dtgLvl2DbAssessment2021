@@ -1,7 +1,7 @@
 <?php
+require "connect.php";
 function printHeader($title, $activePage)
 {
-    include "connect.php";
     $home = '';
     $gallery = '';
     $search = '';
