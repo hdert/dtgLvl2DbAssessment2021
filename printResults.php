@@ -1,13 +1,31 @@
 <?php
+/** 
+ * Returns the number with a prefixed '#' if it exists.
+ * 
+ * @param integer $number the number that gets checked for it's existence.
+ * 
+ * @return $number with a '#' prefix if it exists, other wise nothing
+ */
 function printNumber($number)
 {
     if ($number != '') {
         return " #$number";
     };
 };
+/**
+ * Prints the results in a custom format.
+ * 
+ * If there are no results it prints and error message to the user.
+ * 
+ * @param array $results the results of a sql query
+ * 
+ * @return nothing
+ */
 function printResults($results)
 {
+    // check if there are results, else print error message.
     if ($results) {
+        // These three variables dictate how many columns of results there are
         $iterator = 0;
         $cardsPerRow = 4;
         $column = 12 / $cardsPerRow;

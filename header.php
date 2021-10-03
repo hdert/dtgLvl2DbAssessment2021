@@ -1,10 +1,15 @@
 <?php
+// import connect.php for every page, as every page uses it.
 require "connect.php";
 function printHeader($title, $activePage)
 {
+    // set variables beforehand as they are all used regardless of which
+    // variable the case statement lands on.
     $home = '';
     $gallery = '';
     $search = '';
+    // this is for discerning which navbar link to set as active using
+    // the information provided to the function by the pages.
     switch ($activePage) {
     case 0:
         $home = ' active" aria-current="page';
@@ -16,6 +21,9 @@ function printHeader($title, $activePage)
         $search = ' active" aria-current="page';
         break;
     }
+    // print the header and opening tags of the page
+    // things of note are the custom title, importing of the bootstrap css
+    // and printing of the navbar.
     print '<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -53,8 +61,11 @@ function printHeader($title, $activePage)
         </div>
         <div class="d-flex">';
     if ($activePage != 2) {
-            print '
-          <form action="search.php" method="get" class="d-flex me-2">
+        // this function prints the search form in the navbar in every
+        // page except for the search.php page as that would be
+        // redundant.
+        print '
+          <form action="search.php" method="post" class="d-flex me-2">
             <input class="form-control me-2" type="search" name="query"
             placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-primary text-nowrap"

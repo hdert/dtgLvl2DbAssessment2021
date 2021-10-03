@@ -2,23 +2,23 @@
 require "header.php";
 printHeader("CGS | Search", 2);
 $query = '';
-if (array_key_exists('query', $_GET)) {
-    if ($_GET['query'] != '') {
-        $query = "value='".$_GET['query']."'";
+if (array_key_exists('query', $_POST)) {
+    if ($_POST['query'] != '') {
+        $query = "value='".$_POST['query']."'";
     };
 };
 $price = '';
-if (array_key_exists('price', $_GET)) {
-    if ($_GET['price'] != '') {
-        $price = "value='".$_GET['price']."'";
+if (array_key_exists('price', $_POST)) {
+    if ($_POST['price'] != '') {
+        $price = "value='".$_POST['price']."'";
     };
 };
 $lessThan = 'checked';
 $equals = '';
 $greaterThan = '';
-if (array_key_exists('priceSort', $_GET)) {
-    if ($_GET['priceSort'] != '') {
-        switch ($_GET['priceSort']) {
+if (array_key_exists('priceSort', $_POST)) {
+    if ($_POST['priceSort'] != '') {
+        switch ($_POST['priceSort']) {
         case "equals":
             $equals = "checked";
             break;
@@ -30,7 +30,7 @@ if (array_key_exists('priceSort', $_GET)) {
 };
     print '
     <div class="container-fluid col-8 mt-5 pt-5">
-      <form action="search.old.php" method="get" class="d-flex flex-wrap">
+      <form action="search.old.php" method="post" class="d-flex flex-wrap">
         <input class="form-control form-control-lg col-12" type="search"
         name="query" placeholder="Search" aria-label="Search" '.$query.'>
         <div class="input-group input-group-sm mt-3">
@@ -63,7 +63,7 @@ if (array_key_exists('priceSort', $_GET)) {
             // if not null, select and fetch all entries with
             // $search_query in any field and call printResults($results)
         // if return is 1,
-        // call priceSortHandler($search_query, $_GET['price'], $_GET['priceSort'])
+        // call priceSortHandler($search_query, $_POST['price'], $_POST['priceSort'])
         // if return is 2, print the given error message
 
     // def priceSortHandler($search_query, $price, $priceSort)
@@ -94,8 +94,8 @@ if (array_key_exists('priceSort', $_GET)) {
 
 function priceFieldIsValid()
 {
-    if (array_key_exists('price', $_GET)) {
-        $price = $_GET['price'];
+    if (array_key_exists('price', $_POST)) {
+        $price = $_POST['price'];
         if ($price == '') {
             return array(0, null);
         } else {
@@ -207,11 +207,11 @@ function priceSortHandler($pdo, $search_query, $price, $priceSort)
     printResults($results);
 };
 
-if (array_key_exists('query', $_GET)) {
-    if ($_GET['query'] == '') {
+if (array_key_exists('query', $_POST)) {
+    if ($_POST['query'] == '') {
           $search_query = null;
     } else {
-        $search_query = "%".$_GET['query']."%";
+        $search_query = "%".$_POST['query']."%";
     };
 } else {
     $search_query = null;
@@ -256,7 +256,7 @@ case 0:
     printResults($results);
     break;
 case 1:
-    priceSortHandler($pdo, $search_query, $_GET['price'], $_GET['priceSort']);
+    priceSortHandler($pdo, $search_query, $_POST['price'], $_POST['priceSort']);
     break;
 case 2:
     print $errorMessage;
